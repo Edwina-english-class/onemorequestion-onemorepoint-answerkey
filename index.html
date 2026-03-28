@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>今天多一題，明天多一分</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Playfair+Display:wght@700;900&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<title>今天多一題，明天多一分 — 答案總覽</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --ink: #1a1208;
@@ -15,331 +15,150 @@
     --sage: #5a7a52;
     --light-sage: #e8f0e6;
     --border: #c8b89a;
-    --shadow: rgba(26, 18, 8, 0.12);
+    --shadow: rgba(26,18,8,0.10);
+    --r1: #3b6ea5;
+    --r2: #5a7a52;
+    --r3: #8b5a2b;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin:0; padding:0; box-sizing:border-box; }
 
   body {
     background-color: var(--paper);
     background-image:
-      radial-gradient(ellipse at 20% 10%, rgba(212,168,67,0.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 90%, rgba(90,122,82,0.06) 0%, transparent 50%),
-      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8b89a' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      radial-gradient(ellipse at 15% 10%, rgba(212,168,67,0.09) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 90%, rgba(90,122,82,0.07) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23c8b89a' fill-opacity='0.07'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     min-height: 100vh;
     font-family: 'Noto Sans TC', sans-serif;
     color: var(--ink);
+    padding-bottom: 120px;
   }
 
-  .page { display: none; }
-  .page.active { display: block; }
-
-  /* ── QUERY PAGE ── */
-  #query-page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 40px 20px 60px;
+  /* ── TOP HEADER ── */
+  .top-header {
+    background: white;
+    border-bottom: 3px solid transparent;
+    border-image: linear-gradient(90deg, var(--gold), var(--accent), var(--sage)) 1;
+    padding: 28px 24px 22px;
+    text-align: center;
+    box-shadow: 0 2px 16px var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 10;
   }
-
-  .header { text-align: center; margin-bottom: 36px; }
 
   .header-badge {
     display: inline-block;
     background: var(--accent);
     color: white;
-    font-size: 11px;
-    font-weight: 500;
+    font-size: 10px;
+    font-weight: 700;
     letter-spacing: 3px;
-    padding: 5px 18px;
+    padding: 4px 16px;
     border-radius: 2px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-transform: uppercase;
   }
 
   .main-title {
     font-family: 'Noto Serif TC', serif;
-    font-size: clamp(24px, 5vw, 40px);
+    font-size: clamp(20px, 4vw, 32px);
     font-weight: 900;
     color: var(--ink);
     line-height: 1.3;
   }
 
-  .main-title::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--gold), var(--accent));
-    margin: 14px auto 0;
-  }
-
   .sub-title {
-    font-size: 15px;
+    font-size: 13px;
     color: #7a6a55;
     letter-spacing: 2px;
-    margin-top: 16px;
+    margin-top: 6px;
   }
 
-  /* ── CARD ── */
-  .card {
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 32px 36px;
-    width: 100%;
-    max-width: 600px;
-    box-shadow: 0 8px 40px var(--shadow), 0 2px 8px rgba(0,0,0,0.05);
-    position: relative;
-    overflow: hidden;
+  /* ── CONTENT ── */
+  .content {
+    max-width: 860px;
+    margin: 36px auto 0;
+    padding: 0 20px;
   }
 
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--gold), var(--accent), var(--sage));
-  }
+  /* ── ROUND SECTION ── */
+  .round-section { margin-bottom: 40px; }
 
-  .field-label {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    color: #8a7a65;
-    text-transform: uppercase;
-    margin-bottom: 6px;
+  .round-title {
     display: flex;
     align-items: center;
-    gap: 8px;
-  }
-
-  .total-badge {
-    display: inline-block;
-    background: var(--light-sage);
-    color: var(--sage);
-    font-size: 11px;
-    font-weight: 700;
-    padding: 2px 10px;
-    border-radius: 20px;
-    letter-spacing: 1px;
-    transition: background 0.2s, color 0.2s;
-  }
-
-  .total-badge.full {
-    background: #fff0f0;
-    color: var(--accent);
-  }
-
-  .field-hint {
-    font-size: 12px;
-    color: #aaa;
+    gap: 14px;
     margin-bottom: 16px;
-    letter-spacing: 0.3px;
   }
 
-  /* ── ROUND PANELS ── */
-  .round-panels {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 8px;
+  .round-label {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px;
+    font-weight: 900;
+    color: white;
+    padding: 4px 18px;
+    border-radius: 4px;
   }
 
-  .round-panel {
+  .r1-label { background: var(--r1); }
+  .r2-label { background: var(--r2); }
+  .r3-label { background: var(--r3); }
+
+  .round-line {
+    flex: 1;
+    height: 1.5px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  /* ── ANSWER TABLE ── */
+  .answer-table {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
     border: 1.5px solid var(--border);
     border-radius: 10px;
     overflow: hidden;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-
-  .round-panel.has-selection {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 2px rgba(212,168,67,0.15);
-  }
-
-  .round-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 13px 16px;
-    background: var(--warm);
-    cursor: pointer;
-    user-select: none;
-    transition: background 0.15s;
-  }
-
-  .round-header:hover { background: #f0ddb8; }
-
-  .round-checkbox {
-    width: 18px; height: 18px;
-    border: 2px solid var(--border);
-    border-radius: 4px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    transition: all 0.18s;
     background: white;
+    box-shadow: 0 4px 20px var(--shadow);
+  }
+
+  .cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 6px;
+    border-right: 1px solid #e8dcc8;
+    border-bottom: 1px solid #e8dcc8;
+  }
+
+  .cell:nth-child(10n) { border-right: none; }
+  .cell:nth-last-child(-n+10) { border-bottom: none; }
+
+  .cell-num {
     font-size: 11px;
-    font-weight: 700;
-  }
-
-  .round-checkbox.checked {
-    background: var(--sage);
-    border-color: var(--sage);
-    color: white;
-  }
-
-  .round-name {
-    font-family: 'Noto Serif TC', serif;
-    font-weight: 700;
-    font-size: 15px;
-    color: var(--ink);
-    flex: 1;
-  }
-
-  .round-count {
-    font-size: 12px;
-    color: var(--accent);
-    font-weight: 700;
-    min-width: 50px;
-    text-align: right;
-  }
-
-  .round-arrow {
-    font-size: 12px;
     color: #aaa;
-    transition: transform 0.2s;
-  }
-
-  .round-arrow.open { transform: rotate(180deg); }
-
-  .round-body {
-    padding: 0 16px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
-  }
-
-  .round-body.open {
-    max-height: 200px;
-    padding: 14px 16px 16px;
-  }
-
-  /* ── NUMBER CHIPS ── */
-  .num-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-  }
-
-  .num-chip {
-    width: 36px; height: 36px;
-    border: 1.5px solid var(--border);
-    border-radius: 6px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.15s;
-    background: white;
-    color: var(--ink);
-    font-family: 'Noto Sans TC', sans-serif;
-    user-select: none;
-    display: flex; align-items: center; justify-content: center;
     font-weight: 500;
+    margin-bottom: 5px;
+    line-height: 1;
   }
 
-  .num-chip:hover:not(.disabled) { border-color: var(--gold); color: var(--gold); }
-
-  .num-chip.selected {
-    background: var(--gold);
-    border-color: var(--gold);
-    color: white;
-    font-weight: 700;
-  }
-
-  .num-chip.disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
-
-  /* ── SUMMARY ── */
-  .summary-row {
-    margin-top: 18px;
-    padding: 12px 14px;
-    background: var(--light-sage);
-    border-radius: 8px;
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  .summary-tag {
-    background: white;
-    border: 1px solid #a8c4a0;
-    border-radius: 14px;
-    padding: 3px 10px 3px 10px;
-    font-size: 12px;
-    color: var(--ink);
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.15s;
-    display: flex; align-items: center; gap: 5px;
-  }
-
-  .summary-tag:hover { background: #ffe8e8; border-color: #e8a0a0; }
-  .summary-tag .x { color: #c0392b; font-size: 11px; font-weight: 700; }
-
-  .summary-empty {
-    color: #bbb;
-    font-size: 12px;
-    font-style: italic;
-    width: 100%;
-    text-align: center;
-  }
-
-  /* ── ERROR ── */
-  .error-msg {
-    display: none;
-    background: #fff5f5;
-    border: 1.5px solid #ffcccc;
-    border-radius: 8px;
-    padding: 10px 16px;
-    font-size: 13px;
-    color: var(--accent);
-    margin-top: 14px;
-    text-align: center;
-    letter-spacing: 0.5px;
-  }
-
-  /* ── BUTTON ── */
-  .btn-query {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, var(--accent) 0%, #8b1a1a 100%);
-    color: white;
-    border: none;
-    border-radius: 8px;
+  .cell-ans {
+    font-size: 20px;
+    font-weight: 900;
     font-family: 'Noto Serif TC', serif;
-    font-size: 17px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 4px 16px rgba(192,57,43,0.35);
-    margin-top: 20px;
+    line-height: 1;
   }
 
-  .btn-query:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(192,57,43,0.4); }
-  .btn-query:active { transform: translateY(0); }
+  .r1 .cell-ans { color: var(--r1); }
+  .r2 .cell-ans { color: var(--r2); }
+  .r3 .cell-ans { color: var(--r3); }
 
   /* ── MAGIC MIRROR ── */
   .magic-mirror {
-    max-width: 600px;
-    width: 100%;
-    margin-top: 30px;
+    max-width: 560px;
+    margin: 0 auto 40px;
     background: var(--light-sage);
     border: 1.5px dashed #a8c4a0;
     border-radius: 10px;
@@ -349,475 +168,130 @@
 
   .magic-mirror::before {
     content: '🪄';
-    font-size: 22px;
+    font-size: 20px;
     display: block;
     margin-bottom: 10px;
   }
 
   .magic-mirror p {
     font-family: 'Noto Serif TC', serif;
-    font-size: 14px;
+    font-size: 13.5px;
     line-height: 2.1;
     color: #4a6a42;
   }
 
   .hl { color: var(--accent); font-weight: 700; }
 
-  /* ── RESULT PAGE ── */
-  #result-page {
-    min-height: 100vh;
-    padding: 40px 20px 80px;
-    max-width: 700px;
-    margin: 0 auto;
-  }
-
-  .result-header {
-    text-align: center;
-    margin-bottom: 36px;
-    padding-bottom: 22px;
-    border-bottom: 2px solid var(--border);
-  }
-
-  .result-title {
-    font-family: 'Playfair Display', 'Noto Serif TC', serif;
-    font-size: 26px;
-    font-weight: 900;
-    color: var(--ink);
-  }
-
-  .result-subtitle {
-    font-size: 13px;
-    color: #9a8a75;
-    margin-top: 8px;
-    letter-spacing: 1px;
-    line-height: 1.8;
-  }
-
-  .question-card {
+  /* ── BOTTOM BAR ── */
+  .bottom-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
     background: white;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 26px 30px;
-    margin-bottom: 18px;
-    box-shadow: 0 4px 20px var(--shadow);
-    animation: slideIn 0.4s ease both;
+    border-top: 2px solid var(--border);
+    padding: 14px 20px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
+    z-index: 20;
   }
 
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .q-label { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
-
-  .q-round-badge {
-    background: var(--sage);
+  .btn-open {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 48px;
+    background: linear-gradient(135deg, var(--accent) 0%, #8b1a1a 100%);
     color: white;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 4px;
-    letter-spacing: 1.5px;
-  }
-
-  .q-num-badge {
-    background: var(--gold);
-    color: white;
-    font-size: 13px;
-    font-weight: 700;
-    padding: 3px 12px;
-    border-radius: 4px;
-  }
-
-  .q-translation {
-    font-size: 15px;
-    color: #5a5040;
-    line-height: 1.85;
-    margin-bottom: 16px;
-    padding: 12px 16px;
-    background: var(--warm);
-    border-radius: 6px;
-    border-left: 3px solid var(--gold);
-  }
-
-  .q-section-title {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #9a8a75;
-    margin-bottom: 7px;
-    margin-top: 13px;
-  }
-
-  .q-answer {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--accent);
-    font-family: 'Noto Serif TC', serif;
-    line-height: 1.7;
-  }
-
-  .q-others {
-    font-size: 14px;
-    color: #7a6a55;
-    line-height: 1.7;
-    margin-top: 6px;
-    padding: 10px 14px;
-    background: #f9f6f0;
-    border-radius: 6px;
-  }
-
-  .btn-reset {
-    display: block;
-    margin: 32px auto 0;
-    padding: 15px 44px;
-    background: white;
-    border: 2px solid var(--ink);
+    border: none;
     border-radius: 8px;
     font-family: 'Noto Serif TC', serif;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
     cursor: pointer;
-    color: var(--ink);
     transition: all 0.2s;
-    box-shadow: 4px 4px 0 var(--ink);
+    box-shadow: 0 4px 20px rgba(192,57,43,0.4);
   }
 
-  .btn-reset:hover {
-    background: var(--ink);
-    color: white;
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 var(--gold);
-  }
+  .btn-open:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(192,57,43,0.5); }
+  .btn-open:active { transform:translateY(0); }
 
-  .btn-reset:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
-
-  @media (max-width: 480px) {
-    .card { padding: 24px 16px; }
-    .question-card { padding: 20px 16px; }
-    .num-chip { width: 32px; height: 32px; font-size: 12px; }
+  @media (max-width: 600px) {
+    .answer-table { grid-template-columns: repeat(5, 1fr); }
+    .cell:nth-child(10n) { border-right: 1px solid #e8dcc8; }
+    .cell:nth-child(5n) { border-right: none; }
+    .cell:nth-last-child(-n+10) { border-bottom: 1px solid #e8dcc8; }
+    .cell:nth-last-child(-n+5) { border-bottom: none; }
+    .cell-ans { font-size: 18px; }
   }
 </style>
 </head>
 <body>
 
-<!-- QUERY PAGE -->
-<div id="query-page" class="page active">
-  <div class="header">
-    <div class="header-badge">📖 English Practice</div>
-    <h1 class="main-title">今天多一題，明天多一分</h1>
-    <p class="sub-title">片語練習卷解析查詢</p>
-  </div>
+<div class="top-header">
+  <div class="header-badge">📋 Answer Key</div>
+  <h1 class="main-title">今天多一題，明天多一分</h1>
+  <p class="sub-title">片語練習卷 — 答案總覽</p>
+</div>
 
-  <div class="card">
-    <div class="field-label">
-      選擇回數與題號
-      <span class="total-badge" id="total-badge">已選 0 題</span>
-    </div>
-    <p class="field-hint">可跨回合選題 · 展開各回合點選題號 · 最多共選 <strong style="color:var(--accent)">5 題</strong></p>
+<div class="content" id="answer-content"></div>
 
-    <div class="round-panels" id="round-panels"></div>
-
-    <div class="summary-row" id="summary-row">
-      <span class="summary-empty">尚未選擇任何題目</span>
-    </div>
-
-    <div class="error-msg" id="error-msg"></div>
-
-    <button class="btn-query" onclick="handleQuery()">查詢解析</button>
-  </div>
-
+<div style="max-width:860px;margin:0 auto;padding:0 20px 32px">
   <div class="magic-mirror">
     <p>
       魔鏡啊魔鏡，世界上最漂亮的英文老師是誰？<br>
       當然是你們的英文老師 <span class="hl">Edwina</span> ><span class="hl"><</span><br>
-      魔鏡啊魔鏡，世界上最漂亮、最帥氣的學生是誰？<br>
+      魔鏡啊魔鏡，世界上最認真的學生是誰？<br>
       是正在查解析 <span class="hl">訂正題目</span> 的你！
     </p>
   </div>
 </div>
 
-<!-- RESULT PAGE -->
-<div id="result-page" class="page">
-  <div class="result-header">
-    <div class="result-title">片語解析結果</div>
-    <div class="result-subtitle" id="result-subtitle"></div>
-  </div>
-  <div id="result-list"></div>
-  <button class="btn-reset" onclick="resetQuery()">點我重新查詢</button>
+<div class="bottom-bar">
+  <button class="btn-open" onclick="window.open('片語練習解析查詢.html','_blank','width=820,height=920,scrollbars=yes,resizable=yes')">
+    🔍 點我查詢解析
+  </button>
 </div>
 
 <script>
-const DATA = [
-  {回數:"第一回",題號:1,翻譯:"你可以幫我一個忙嗎？幫我拿把傘，因為外面正在下雨。",解析:"(A) do me a favor: 幫我個忙",其他:"(B) 出現；(C) 贈送/分發；(D) 轉身"},
-  {回數:"第一回",題號:2,翻譯:"越來越多人在家養寵物。貓和狗在台灣很常見。",解析:"(C) keep pets: 養寵物",其他:"(A) 賺錢；(B) 去旅行；(D) 到處走走"},
-  {回數:"第一回",題號:3,翻譯:"讓我們為他唱了這麼棒的歌給我們聽而熱烈鼓掌。",解析:"(D) give him a big hand: 為某人鼓掌",其他:"(A) 讓他歇會；(B) 幫他一把；(C) 打給他"},
-  {回數:"第一回",題號:4,翻譯:"Tim 得到新東西時喜歡向同學炫耀。這就是他不受歡迎的原因。",解析:"(B) show off: 炫耀",其他:"(A) 拒絕；(C) 填寫；(D) 繼續"},
-  {回數:"第一回",題號:5,翻譯:"請把音樂關小聲一點，因為你小弟弟正在臥室睡覺。",解析:"(D) turn down: 關小聲/拒絕",其他:"(A) 開大聲；(B) 結果是；(C) 繳交"},
-  {回數:"第一回",題號:6,翻譯:"我很想參加你們的感恩節晚餐，但我最近在節食，不能吃太多。",解析:"(A) on a diet: 節食中",其他:"其他選項 (B, C, D) 介系詞或語法錯誤"},
-  {回數:"第一回",題號:7,翻譯:"你去哪了？3小時前接到電話後你都沒出現。",解析:"(B) show up: 出現",其他:"(A) 結果是；(C) 填滿；(D) 出現/出版"},
-  {回數:"第一回",題號:8,翻譯:"在你買這個昂貴的東西前，我覺得你應該考慮清楚。",解析:"(A) think it over: 仔細考慮",其他:"(B) 帶某人參觀；(C) 複習/檢查；(D) 贈送"},
-  {回數:"第一回",題號:9,翻譯:"進入房間前請脫掉鞋子，否則房間很快會變髒。",解析:"(C) take off: 脫掉/起飛",其他:"(A) 尋找；(B) 出現/出版；(D) 找出"},
-  {回數:"第一回",題號:10,翻譯:"也許我們需要報警。我想我們在森林裡迷路了。",解析:"(B) get lost: 迷路",其他:"(A) 聚會；(C) 下車；(D) 離開/逃避"},
-  {回數:"第一回",題號:11,翻譯:"為了保持身材，Sarah每天晚餐只吃一碗沙拉。那讓她變苗條。",解析:"(A) keep fit: 保持身材",其他:"(B) 許願；(C) 去旅行；(D) 遛狗"},
-  {回數:"第一回",題號:12,翻譯:"熬夜對健康不好。我們需要充足睡眠否則會在課堂打瞌睡。",解析:"(C) Staying up: 熬夜",其他:"(A) 吃藥；(B) 寫日記；(D) 賺錢"},
-  {回數:"第一回",題號:13,翻譯:"我今晚需要些好衣服穿。我要和Mike在一間很棒的餐廳約會。",解析:"(C) date with: 與...約會",其他:"(A) 許願；(B) 查閱；(D) 下車"},
-  {回數:"第一回",題號:14,翻譯:"加入社團前，我們必須填好紙上的資訊。",解析:"(D) fill out: 填寫",其他:"(A) 出現；(B) 找出；(C) 結果是"},
-  {回數:"第一回",題號:15,翻譯:"A: 這件洋裝你穿很好看。你想試穿看看嗎？ B: 好。",解析:"(B) to try it on: 試穿",其他:"(A) 脫掉；(C) 保持身材；(D) 查閱"},
-  {回數:"第一回",題號:16,翻譯:"A: 你今天看起來不同。臉上加了什麼嗎？ B: 也許是因為這件洋裝跟我的頭髮很搭。",解析:"(B) goes with: 與...相配",其他:"(A) 到處走動；(C) 隨同/進展；(D) 變成"},
-  {回數:"第一回",題號:17,翻譯:"我的父親經歷過艱難的時光，最後變得成功。",解析:"(A) experienced: 經歷",其他:"(B) 旅遊；(C) 出現；(D) 看 (see)過去式"},
-  {回數:"第一回",題號:18,翻譯:"當 Jane 在公園慢跑時，她在樹下偶然發現一隻小狗。",解析:"(B) met: 遇見",其他:"(A) 餵食；(C) 拯救；(D) 殺害"},
-  {回數:"第一回",題號:19,翻譯:"經過仔細的規劃，這棟舊房子被改造成一座博物館。",解析:"(A) changed: 改變、變得",其他:"(B) 畫；(C) 漆/畫；(D) 告訴"},
-  {回數:"第一回",題號:20,翻譯:"我不知道這個單字的意思。我需要一本字典來查閱它。",解析:"(B) check: 檢查、核對",其他:"(A) 回答；(C) 寫字；(D) 攜帶"},
-  {回數:"第一回",題號:21,翻譯:"發生什麼事了？為什麼你們看起來這麼興奮？",解析:"(A) going on (發生)",其他:"(B) 出去；(C) 結果是；(D) 炫耀"},
-  {回數:"第一回",題號:22,翻譯:"我們剛好遇見了最愛的影星 Tony Stark。",解析:"(D) came across (遇見)",其他:"(A) 想起；(B) 相處；(C) 填寫"},
-  {回數:"第一回",題號:23,翻譯:"他為什麼會出現在我們城市？",解析:"(A) show up (出現)",其他:"(B) 轉身；(C) 繼續；(D) 準備好"},
-  {回數:"第一回",題號:24,翻譯:"他捐了錢並捐贈(送)一些衣服給孩子。",解析:"(B) gave away (捐贈)",其他:"(A) 放棄；(C) 還給；(D) 給予休息時間"},
-  {回數:"第一回",題號:25,翻譯:"他從不拒絕他的粉絲。",解析:"(C) turns down (拒絕)",其他:"(A) 尋找；(B) 脫掉；(D) 考慮"},
-  {回數:"第一回",題號:26,翻譯:"我們同學每年在她生日都會聚在一起。",解析:"(B) get together (聚會)",其他:"(A) 離開；(C) 到處走；(D) 起床"},
-  {回數:"第一回",題號:27,翻譯:"你想一起來嗎？",解析:"(D) come along (隨同)",其他:"(A) 回來；(B) 出現/出版；(C) 遇見"},
-  {回數:"第一回",題號:28,翻譯:"我要怎麼去那間餐廳？",解析:"(C) go to (去)",其他:"(A) 上車；(B) 出去；(D) 搭配"},
-  {回數:"第一回",題號:29,翻譯:"搭101號公車，然後在圖書館站下車。",解析:"(C) get off (下車)",其他:"(A) 複習；(B) 出去；(D) 轉變為"},
-  {回數:"第一回",題號:30,翻譯:"就在圖書館隔壁。",解析:"(A) next to (隔壁)",其他:"(B) 在...之間；(C) 在...下方；(D) 在頂端"},
-  {回數:"第二回",題號:1,翻譯:"看這張圖片。這名男子正試著撲滅火災。",解析:"(D) put out: 熄滅/撲滅",其他:"(A) 穿上；(B) 延期；(C) 收拾/放好"},
-  {回數:"第二回",題號:2,翻譯:"這台新車在我買完僅一個月後就故障了。我真不敢相信！",解析:"(C) broke down: (機器)故障",其他:"(A) 拒絕/關小聲；(B) 跌倒；(D) 撞倒"},
-  {回數:"第二回",題號:3,翻譯:"我們今天中午去外面吃。爸爸想去看看楓樹街上那家新的日本餐廳。",解析:"(B) check out: 察看/檢查/去看看",其他:"(A) 屬於；(C) 吃光；(D) 登記住宿"},
-  {回數:"第二回",題號:4,翻譯:"我們不知道音樂表演何時會舉行，因為 Mike 沒告訴我們。",解析:"(D) take place: 舉行/發生",其他:"(A) 拿走；(B) 脫掉/起飛；(C) 採取行動"},
-  {回數:"第二回",題號:5,翻譯:"那是一場刺激的棒球賽。我們全部人都站起來大聲吶喊，為校隊加油。",解析:"(A) cheer for: 為...歡呼加油",其他:"(B) 嘔吐；(C) 代表；(D) 擔心"},
-  {回數:"第二回",題號:6,翻譯:"我叫我弟停止打鼓，因為我無法忍受噪音。",解析:"(C) put up with: 忍受",其他:"(A) 穿上；(B) 接送/撿起；(D) 傳遞"},
-  {回數:"第二回",題號:7,翻譯:"Wang 先生要求 Jason 重寫報告。裡面充滿了錯誤。",解析:"(A) full of: 充滿...的",其他:"(B) 以...為榮；(C) 在...對面；(D) 習慣於"},
-  {回數:"第二回",題號:8,翻譯:"一知道丈夫過世，Amy 忍不住放聲大哭。",解析:"(B) passed away: 去世/過世",其他:"(A) 收拾；(C) 丟棄；(D) 拿走"},
-  {回數:"第二回",題號:9,翻譯:"我昨天沒去 Sam 的派對。事實上，他根本沒邀請我！",解析:"(D) In fact: 事實上",其他:"(A) 另一方面；(B) 最後；(C) 身體不適"},
-  {回數:"第二回",題號:10,翻譯:"那家餐廳很受歡迎，你至少要等 30 到 40 分鐘才能進去。",解析:"(B) at least: 至少",其他:"(A) 步行；(C) 特價中；(D) 最後"},
-  {回數:"第二回",題號:11,翻譯:"Kevin 開著他的跑車上班，只是為了炫耀他家多有錢。",解析:"(C) show off: 炫耀",其他:"(A) 撿起/接送；(B) 用光；(D) 帶領參觀"},
-  {回數:"第二回",題號:12,翻譯:"工程師們在開會討論如何處理電腦當機問題。",解析:"(B) deal with: 處理/應付",其他:"(A) 交出；(C) 找碴/欺負；(D) 嘲笑"},
-  {回數:"第二回",題號:13,翻譯:"如果你一直對朋友撒謊，你最後會落得完全沒有朋友。",解析:"(A) end up: 最後/結果",其他:"(B) 建立/設置；(C) 熬夜；(D) 放棄"},
-  {回數:"第二回",題號:14,翻譯:"保姆很擔心他是否能同時照顧這麼多小孩。",解析:"(A) look after: 照顧",其他:"(B) 看著；(C) 查閱；(D) 尋找"},
-  {回數:"第二回",題號:15,翻譯:"我爸拒絕了去美國的工作，因為他說想花更多時間在台灣陪我們。",解析:"(D) turned down: 拒絕",其他:"(A) 減肥；(B) 撞倒；(C) 燒毀"},
-  {回數:"第二回",題號:16,翻譯:"這些蟲子以人類血液為食，一旦被咬就會發高燒。",解析:"(B) feed on: 以...為食",其他:"(A) 試穿；(C) 穿上；(D) 找碴"},
-  {回數:"第二回",題號:17,翻譯:"別只是坐在那無所事事。你必須採取行動來挽救家族事業。",解析:"(D) take action: 採取行動",其他:"(A) 撇下/讓...下車；(B) 出現；(C) 前往"},
-  {回數:"第二回",題號:18,翻譯:"該起床了，Rita！你的校車三十分鐘後就要來了。",解析:"(C) wake up: 醒來/起床",其他:"(A) 找出；(B) 跌倒；(D) 穿上"},
-  {回數:"第二回",題號:19,翻譯:"A: 數學作業太難了。我放棄了！ B: 不，沒你想的那麼難。",解析:"(A) give up: 放棄",其他:"(B) 出去；(C) 關掉；(D) 掉落"},
-  {回數:"第二回",題號:20,翻譯:"這兩件洋裝都很棒。我不知道要買哪一件。我無法下定決心。",解析:"(C) make up (one's mind): 下定決心",其他:"(A) 握住；(B) 傳遞；(D) 導致"},
-  {回數:"第二回",題號:21,翻譯:"自從 Ann 去年五月搬到英國後，我們已經有一段時間沒收到她的消息了。",解析:"(D) heard from: 收到...的消息",其他:"(A) 小心；(B) 查閱；(C) 聽說過"},
-  {回數:"第二回",題號:22,翻譯:"A: 我們可以把會議延期到下週嗎？ B: 當然。",解析:"(A) put off: 延期",其他:"(B) 等一下/不掛斷；(C) 收拾乾淨；(D) 看著"},
-  {回數:"第二回",題號:23,翻譯:"冰箱故障了。我們找人來修吧，不然裡面的食物很快會壞掉。",解析:"(C) out of order: 故障",其他:"(A) 繼續；(B) 特價中；(D) 充滿"},
-  {回數:"第二回",題號:24,翻譯:"Lily 睡眠不足，因為她經常為了讀書而熬夜。",解析:"(A) stays up: 熬夜",其他:"(B) 起床；(C) 吃光；(D) 查閱"},
-  {回數:"第二回",題號:25,翻譯:"多虧了新的醫療技術，更多生命正被挽救。",解析:"(B) Thanks to: 多虧/由於",其他:"(A) 轉身；(C) 接管；(D) 考慮"},
-  {回數:"第二回",題號:26,翻譯:"我們這週末需要組建一個淨灘小組。",解析:"(A) set up: 設立/組建",其他:"(B) 起床；(C) 醒來；(D) 長大"},
-  {回數:"第二回",題號:27,翻譯:"我們可以撿起那些塑膠瓶和袋子。",解析:"(D) pick up: 撿起",其他:"(A) 振作起來；(B) 查閱；(C) 放棄"},
-  {回數:"第二回",題號:28,翻譯:"我們應該提醒人們不要到處亂丟垃圾。",解析:"(D) throw away: 丟棄",其他:"(A) 收拾；(B) 逃跑；(C) 遙遠"},
-  {回數:"第二回",題號:29,翻譯:"我們應該張貼一些告示來告訴人們保護海洋嗎？",解析:"(B) put up: 張貼/建造",其他:"(A) 佔用/開始從事；(C) 編造/組成；(D) 熬夜"},
-  {回數:"第二回",題號:30,翻譯:"如果我們不照顧我們的地球，情況會越來越糟。",解析:"(B) look after: 照顧/愛護",其他:"(A) 尋找；(C) 看著；(D) 看起來像"},
-  {回數:"第三回",題號:1,翻譯:"看這張圖。在國中對面有一家新的茶飲店。",解析:"(C) across from: 在...對面",其他:"(A) 在...前面；(B) 在...後面；(D) 在...旁邊"},
-  {回數:"第三回",題號:2,翻譯:"Ted 從他的機車上摔下來並受了重傷。他雙腿都斷了。",解析:"(D) fell off: 從...摔落",其他:"(A) 關掉；(B) 撇下/下車；(C) 下車"},
-  {回數:"第三回",題號:3,翻譯:"在你決定是否要帶它回家之前，你應該先試穿這件洋裝。",解析:"(B) try on: 試穿",其他:"(A) 放棄；(C) 聽說；(D) 尋找"},
-  {回數:"第三回",題號:4,翻譯:"我們相信這項新的交通規則將會導致路上死亡人數減少。",解析:"(A) lead to: 導致/引起",其他:"(B) 前往；(C) 以前習慣於；(D) 夢想"},
-  {回數:"第三回",題號:5,翻譯:"我的祖父母不知道 Taylor Swift 是誰。事實上，他們從未聽說過她。",解析:"(D) heard of: 聽說過",其他:"(A) 傳遞；(B) 以...為食；(C) 嘲笑"},
-  {回數:"第三回",題號:6,翻譯:"在搬進來之前，我們花了幾天時間整理這間公寓。",解析:"(C) tidy up: 整理/收拾",其他:"(A) 等候；(B) 脫掉/起飛；(D) 丟掉"},
-  {回數:"第三回",題號:7,翻譯:"我們的牛奶和鹽快用完了。你回家的路上可以買一些嗎？",解析:"(C) running out: 用完/耗盡",其他:"(A) 出外/熄滅；(B) 當心；(D) 結帳/查看"},
-  {回數:"第三回",題號:8,翻譯:"你不應該拿走那袋不屬於你的錢。那是違法的。",解析:"(B) belong to: 屬於",其他:"(A) 延期；(C) 建立/設置；(D) 出現"},
-  {回數:"第三回",題號:9,翻譯:"我總是在睡覺前關掉房間裡所有的燈。我喜歡在黑暗中睡覺。",解析:"(A) turn off: 關掉",其他:"(B) 找碴/挑剔；(C) 出去；(D) 關小聲"},
-  {回數:"第三回",題號:10,翻譯:"John 以前常在放學後和同學一起出去玩。他很懷念那段美好的舊時光。",解析:"(B) used to: 過去習慣/曾經",其他:"(A) 習慣於(狀態)；(C) 導致；(D) 屬於"},
-  {回數:"第三回",題號:11,翻譯:'A: "km" 代表什麼？ B: 它是 "kilometer" (公里) 的縮寫形式。',解析:"(D) stand for: 代表/象徵",其他:"(A) 等候；(B) 為...加油；(C) 尋找"},
-  {回數:"第三回",題號:12,翻譯:"A: 請把這個消息傳達給所有同學。 B: 好的，我現在去告訴大家。",解析:"(C) pass on: 傳遞/傳達",其他:"(A) 以...為食；(B) 稍等/不掛斷；(D) 試穿"},
-  {回數:"第三回",題號:13,翻譯:"我一看到那個男人放火燒毀那棟房子，就立刻報警了。",解析:"(A) burn down: 燒毀",其他:"(B) 冷靜/降溫；(C) 跌倒；(D) 撞倒"},
-  {回數:"第三回",題號:14,翻譯:"當心！有一隻狗正跑過街道。",解析:"(A) Watch out: 當心/小心",其他:"(B) 另一方面；(C) 繼續/請便；(D) 記住"},
-  {回數:"第三回",題號:15,翻譯:"Rick 很怕那兩個惡霸，因為他們總是找他麻煩。",解析:"(D) pick on: 找碴/欺負",其他:"(A) 查閱；(B) 撿起/接送；(C) 拿出來"},
-  {回數:"第三回",題號:16,翻譯:"我聽到家門外有人在吵架，所以我走出去弄清楚發生了什麼事。",解析:"(B) find out: 找出/查明",其他:"(A) 熬夜；(C) 舉行；(D) 抵達"},
-  {回數:"第三回",題號:17,翻譯:"Lee 先生要求 Linda 將他說的所有話在紙上寫下來。",解析:"(D) write down: 寫下",其他:"(A) 拒絕/關小聲；(B) 坐下；(C) 減肥"},
-  {回數:"第三回",題號:18,翻譯:"Sam 叔叔和 Sally 姑姑將在兩小時後抵達台北。",解析:"(D) arrive in: 抵達",其他:"(A) 熬夜；(B) 出現；(C) 舉行"},
-  {回數:"第三回",題號:19,翻譯:"Olsen 先生為校隊的球員們感到驕傲。他們今天打了一場精彩的比賽。",解析:"(C) proud of: 為...驕傲",其他:"(A) 厭倦；(B) 充滿；(D) 充滿"},
-  {回數:"第三回",題號:20,翻譯:"出去旅遊時，請抓緊你的包包且絕不要放手。",解析:"(B) hold onto: 緊握/抓住",其他:"(A) 聽說過；(C) 以...為食；(D) 摔落"},
-  {回數:"第三回",題號:21,翻譯:"我弟弟非常餓，把他盤子裡的所有東西都吃光了。",解析:"(A) ate up: 吃光",其他:"(B) 最後；(C) 出現；(D) 放棄"},
-  {回數:"第三回",題號:22,翻譯:"我們起步並不順利，但最後在 Kim 的幫助下，我們還是準時交了報告。",解析:"(C) in the end: 最後/結果",其他:"(A) 至少；(B) 順帶一提；(D) 事實上"},
-  {回數:"第三回",題號:23,翻譯:"爸爸正忙著打包，因為他明天要前往日本出差。",解析:"(D) leave for: 前往",其他:"(A) 等候；(B) 尋找；(C) 為...加油"},
-  {回數:"第三回",題號:24,翻譯:"B: 如果你想早點離開，就請便/直接走吧。",解析:"(A) go ahead: 繼續/請便",其他:"(B) 步行；(C) 撲滅；(D) 脫掉/起飛"},
-  {回數:"第三回",題號:25,翻譯:"拜託！誰會喜歡一個總是愛炫耀的人？",解析:"(A) showing off: 炫耀",其他:"(B) 花時間；(C) 養育/提及；(D) 償還"},
-  {回數:"第三回",題號:26,翻譯:"我聽說你要去日本！你想出旅遊計畫了嗎？",解析:"(C) come up with: 想出/提出",其他:"(A) 用完；(B) 與...相處；(D) 遠離"},
-  {回數:"第三回",題號:27,翻譯:"還沒。我還在網路上尋找一些資訊。",解析:"(A) looking for: 尋找",其他:"(B) 照顧；(C) 期待；(D) 看起來像"},
-  {回數:"第三回",題號:28,翻譯:"你應該去看看京都著名的寺廟。它們很漂亮。",解析:"(B) check out: 查看/去看看",其他:"(A) 發放；(C) 填寫；(D) 故障"},
-  {回數:"第三回",題號:29,翻譯:"此外，我需要修理我的相機。它已經壞了一週了。",解析:"(D) fix up: 修理/整修",其他:"(A) 脫掉；(B) 放棄；(C) 穿上"},
-  {回數:"第三回",題號:30,翻譯:"快一點！不要拖延到最後一刻，否則旅行時你就沒相機用了。",解析:"(A) put it off: 延期/拖延",其他:"(B) 拒絕；(C) 丟掉；(D) 取消"},
+const ANSWERS = {
+  "第一回": ["A","C","D","B","D","A","B","A","C","B","A","C","C","D","B","B","A","B","A","B","A","D","A","B","C","B","D","C","C","A"],
+  "第二回": ["D","C","B","D","A","C","A","B","D","B","C","B","A","A","D","B","D","C","A","C","D","A","C","A","B","A","D","D","B","B"],
+  "第三回": ["C","D","B","A","D","C","C","B","A","B","D","C","A","A","D","B","D","D","C","B","A","C","D","A","A","C","A","B","D","A"],
+};
+
+const ROUND_INFO = [
+  { round:"第一回", cls:"r1", labelCls:"r1-label" },
+  { round:"第二回", cls:"r2", labelCls:"r2-label" },
+  { round:"第三回", cls:"r3", labelCls:"r3-label" },
 ];
 
-const ROUNDS = ["第一回","第二回","第三回"];
-const MAX = 5;
-const selections = { "第一回": new Set(), "第二回": new Set(), "第三回": new Set() };
-const openState = { "第一回": false, "第二回": false, "第三回": false };
+const container = document.getElementById('answer-content');
 
-function totalSelected() {
-  return ROUNDS.reduce((s, r) => s + selections[r].size, 0);
-}
+ROUND_INFO.forEach(({round, cls, labelCls}) => {
+  const section = document.createElement('div');
+  section.className = 'round-section';
 
-function buildPanels() {
-  const container = document.getElementById('round-panels');
-  container.innerHTML = '';
-  ROUNDS.forEach(round => {
-    const panel = document.createElement('div');
-    panel.className = 'round-panel';
-    panel.id = 'panel-' + round;
+  section.innerHTML = `
+    <div class="round-title">
+      <span class="round-label ${labelCls}">${round}</span>
+      <div class="round-line"></div>
+    </div>
+  `;
 
-    const header = document.createElement('div');
-    header.className = 'round-header';
-    header.onclick = () => togglePanel(round);
-    header.innerHTML = `
-      <div class="round-checkbox" id="chk-${round}"></div>
-      <span class="round-name">${round}</span>
-      <span class="round-count" id="cnt-${round}"></span>
-      <span class="round-arrow" id="arrow-${round}">▾</span>
-    `;
+  const table = document.createElement('div');
+  table.className = `answer-table ${cls}`;
 
-    const body = document.createElement('div');
-    body.className = 'round-body';
-    body.id = 'body-' + round;
-
-    const grid = document.createElement('div');
-    grid.className = 'num-grid';
-    for (let i = 1; i <= 30; i++) {
-      const chip = document.createElement('button');
-      chip.className = 'num-chip';
-      chip.id = `chip-${round}-${i}`;
-      chip.textContent = i;
-      chip.onclick = () => toggleChip(round, i);
-      grid.appendChild(chip);
-    }
-    body.appendChild(grid);
-    panel.appendChild(header);
-    panel.appendChild(body);
-    container.appendChild(panel);
-  });
-}
-
-function togglePanel(round) {
-  openState[round] = !openState[round];
-  document.getElementById('body-' + round).classList.toggle('open', openState[round]);
-  document.getElementById('arrow-' + round).classList.toggle('open', openState[round]);
-}
-
-function toggleChip(round, num) {
-  const set = selections[round];
-  if (set.has(num)) {
-    set.delete(num);
-    document.getElementById(`chip-${round}-${num}`).classList.remove('selected');
-  } else {
-    if (totalSelected() >= MAX) { showError(`最多只能選 ${MAX} 題喔！`); return; }
-    set.add(num);
-    document.getElementById(`chip-${round}-${num}`).classList.add('selected');
-  }
-  clearError();
-  refreshUI();
-}
-
-function refreshUI() {
-  const total = totalSelected();
-  const badge = document.getElementById('total-badge');
-  badge.textContent = `已選 ${total} 題`;
-  badge.classList.toggle('full', total >= MAX);
-
-  ROUNDS.forEach(round => {
-    const cnt = selections[round].size;
-    document.getElementById('cnt-' + round).textContent = cnt > 0 ? `已選 ${cnt} 題` : '';
-    document.getElementById('chk-' + round).classList.toggle('checked', cnt > 0);
-    document.getElementById('chk-' + round).textContent = cnt > 0 ? '✓' : '';
-    document.getElementById('panel-' + round).classList.toggle('has-selection', cnt > 0);
-    for (let i = 1; i <= 30; i++) {
-      const chip = document.getElementById(`chip-${round}-${i}`);
-      if (chip) chip.classList.toggle('disabled', total >= MAX && !selections[round].has(i));
-    }
+  ANSWERS[round].forEach((ans, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'cell';
+    cell.innerHTML = `<div class="cell-num">${i+1}</div><div class="cell-ans">${ans}</div>`;
+    table.appendChild(cell);
   });
 
-  updateSummary();
-}
-
-function updateSummary() {
-  const row = document.getElementById('summary-row');
-  row.innerHTML = '';
-  const total = totalSelected();
-  if (total === 0) {
-    row.innerHTML = '<span class="summary-empty">尚未選擇任何題目</span>';
-    return;
-  }
-  ROUNDS.forEach(round => {
-    [...selections[round]].sort((a,b)=>a-b).forEach(n => {
-      const tag = document.createElement('span');
-      tag.className = 'summary-tag';
-      tag.title = '點擊取消選取';
-      tag.innerHTML = `${round} 第${n}題 <span class="x">✕</span>`;
-      tag.onclick = () => toggleChip(round, n);
-      row.appendChild(tag);
-    });
-  });
-}
-
-function showError(msg) {
-  const el = document.getElementById('error-msg');
-  el.textContent = msg;
-  el.style.display = 'block';
-}
-
-function clearError() {
-  document.getElementById('error-msg').style.display = 'none';
-}
-
-function handleQuery() {
-  clearError();
-  if (totalSelected() === 0) { showError('請先展開回合並選擇至少一道題目！'); return; }
-
-  const results = [];
-  ROUNDS.forEach(round => {
-    [...selections[round]].sort((a,b)=>a-b).forEach(n => {
-      const item = DATA.find(d => d.回數 === round && d.題號 === n);
-      if (item) results.push(item);
-    });
-  });
-
-  const groups = ROUNDS
-    .filter(r => selections[r].size > 0)
-    .map(r => `${r}：第 ${[...selections[r]].sort((a,b)=>a-b).join('、')} 題`)
-    .join('　');
-
-  document.getElementById('result-subtitle').textContent = `共 ${results.length} 題｜${groups}`;
-
-  const list = document.getElementById('result-list');
-  list.innerHTML = '';
-  results.forEach((item, i) => {
-    const card = document.createElement('div');
-    card.className = 'question-card';
-    card.style.animationDelay = (i * 0.07) + 's';
-    card.innerHTML = `
-      <div class="q-label">
-        <span class="q-round-badge">${item.回數}</span>
-        <span class="q-num-badge">第 ${item.題號} 題</span>
-      </div>
-      <div class="q-translation">${item.翻譯}</div>
-      <div class="q-section-title">✅ 正確答案與解析</div>
-      <div class="q-answer">${item.解析}</div>
-      <div class="q-section-title">❌ 其他選項</div>
-      <div class="q-others">${item.其他}</div>
-    `;
-    list.appendChild(card);
-  });
-
-  document.getElementById('query-page').classList.remove('active');
-  document.getElementById('result-page').classList.add('active');
-  window.scrollTo(0, 0);
-}
-
-function resetQuery() {
-  ROUNDS.forEach(r => { selections[r].clear(); openState[r] = false; });
-  clearError();
-  buildPanels();
-  refreshUI();
-  document.getElementById('result-page').classList.remove('active');
-  document.getElementById('query-page').classList.add('active');
-  window.scrollTo(0, 0);
-}
-
-buildPanels();
-refreshUI();
+  section.appendChild(table);
+  container.appendChild(section);
+});
 </script>
 </body>
 </html>
